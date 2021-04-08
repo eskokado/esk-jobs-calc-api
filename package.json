@@ -19,7 +19,8 @@
   "devDependencies": {},
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "init-db": "ts-node-dev src/db/init.ts"
   },
   "author": "",
   "license": "ISC"
