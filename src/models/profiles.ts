@@ -81,7 +81,7 @@ const deleteProfile = async (id: number) => {
   await dbQueryFirst(`DELETE FROM profile WHERE id = ?`, [id]);
 };
 
-export const jobModel = {
+export const profileModel = {
   insertProfile,
   updateProfile,
   listProfiles,
