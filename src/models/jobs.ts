@@ -25,17 +25,17 @@ const insertJob = async (job: Job) => {
   return getJob(retorno[0].Id);
 };
 
-const updateJob = async (job: Job) => {
+const updateJob = async (id: number, job: Job) => {
   await dbQuery(
     `
-    UPDATE product SET 
+    UPDATE jobs SET 
       name = ?, 
       daily_hours = ?, 
       total_hours = ? 
       WHERE id = ?`,
-    [job.name, job.daily_hours, job.total_hours, job.id]
+    [job.name, job.daily_hours, job.total_hours, id]
   );
-  return getJob(job.id);
+  return getJob(id);
 };
 
 const listJobs = async () => {

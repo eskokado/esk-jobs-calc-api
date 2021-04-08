@@ -9,14 +9,11 @@ import {
 import { Job, jobModel } from "../models/jobs";
 
 const insertJob = (req: Request, res: Response) => {
-  {
-    const job = req.body;
-    if (!job) return badRequest(res, "Job inválido");
-
-    if (!job.name) return badRequest(res, "Informe o nome do Job");
-  }
-
   const job = req.body as Job;
+  if (!job) return badRequest(res, "Job inválido");
+
+  if (!job.name) return badRequest(res, "Informe o nome do Job");
+
   return jobModel
     .insertJob(job)
     .then((job) => {
@@ -27,21 +24,18 @@ const insertJob = (req: Request, res: Response) => {
 
 const updateJob = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  {
-    if (!validateNumber(id)) return badRequest(res, "id inválido");
-
-    const job = req.body;
-    if (!job) return badRequest(res, "Job inválido");
-
-    if (!job.name) return badRequest(res, "Informe o nome do Job");
-
-    const jobSaved = await jobModel.getJob(id);
-    if (!jobSaved) return notFound(res);
-  }
+  if (!validateNumber(id)) return badRequest(res, "id inválido");
 
   const job = req.body as Job;
+  if (!job) return badRequest(res, "Job inválido");
+
+  if (!job.name) return badRequest(res, "Informe o nome do Job");
+
+  const jobSaved = await jobModel.getJob(id);
+  if (!jobSaved) return notFound(res);
+
   return jobModel
-    .updateJob(job)
+    .updateJob(id, job)
     .then((job) => {
       res.json(job);
     })
@@ -57,11 +51,9 @@ const listJobs = ({}: Request, res: Response) => {
     .catch((err) => internalServerError(res, err));
 };
 
-const getJob = ({ req }: Request, res: Response) => {
+const getJob = (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  {
-    if (!validateNumber(id)) return badRequest(res, "id inválido");
-  }
+  if (!validateNumber(id)) return badRequest(res, "id inválido");
 
   return jobModel
     .getJob(id)
@@ -74,12 +66,10 @@ const getJob = ({ req }: Request, res: Response) => {
 
 const deleteJob = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  {
-    if (!validateNumber(id)) return badRequest(res, "id inválido");
+  if (!validateNumber(id)) return badRequest(res, "id inválido");
 
-    const jobSaved = await jobModel.getJob(id);
-    if (!jobSaved) return notFound(res);
-  }
+  const jobSaved = await jobModel.getJob(id);
+  if (!jobSaved) return notFound(res);
 
   return jobModel
     .deleteJob(id)

@@ -9,14 +9,11 @@ import {
 import { Profile, profileModel } from "../models/profiles";
 
 const insertProfile = (req: Request, res: Response) => {
-  {
-    const profile = req.body;
-    if (!profile) return badRequest(res, "Profile inválido");
-
-    if (!profile.name) return badRequest(res, "Informe o nome");
-  }
-
   const profile = req.body as Profile;
+  if (!profile) return badRequest(res, "Profile inválido");
+
+  if (!profile.name) return badRequest(res, "Informe o nome");
+
   return profileModel
     .insertProfile(profile)
     .then((profile) => {
@@ -27,21 +24,19 @@ const insertProfile = (req: Request, res: Response) => {
 
 const updateProfile = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  {
-    if (!validateNumber(id)) return badRequest(res, "id inválido");
 
-    const profile = req.body;
-    if (!profile) return badRequest(res, "Profile inválido");
-
-    if (!profile.name) return badRequest(res, "Informe o nome");
-
-    const profileSaved = await profileModel.getProfile(id);
-    if (!profileSaved) return notFound(res);
-  }
+  if (!validateNumber(id)) return badRequest(res, "id inválido");
 
   const profile = req.body as Profile;
+  if (!profile) return badRequest(res, "Profile inválido");
+
+  if (!profile.name) return badRequest(res, "Informe o nome");
+
+  const profileSaved = await profileModel.getProfile(id);
+  if (!profileSaved) return notFound(res);
+
   return profileModel
-    .updateProfile(profile)
+    .updateProfile(id, profile)
     .then((profile) => {
       res.json(profile);
     })
@@ -57,7 +52,7 @@ const listProfiles = ({}: Request, res: Response) => {
     .catch((err) => internalServerError(res, err));
 };
 
-const getProfile = ({ req }: Request, res: Response) => {
+const getProfile = (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   {
     if (!validateNumber(id)) return badRequest(res, "id inválido");
@@ -74,12 +69,10 @@ const getProfile = ({ req }: Request, res: Response) => {
 
 const deleteProfile = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  {
-    if (!validateNumber(id)) return badRequest(res, "id inválido");
+  if (!validateNumber(id)) return badRequest(res, "id inválido");
 
-    const profileSaved = await profileModel.getProfile(id);
-    if (!profileSaved) return notFound(res);
-  }
+  const profileSaved = await profileModel.getProfile(id);
+  if (!profileSaved) return notFound(res);
 
   return profileModel
     .deleteProfile(id)

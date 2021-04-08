@@ -39,7 +39,7 @@ const insertProfile = async (profile: Profile) => {
   return getProfile(retorno[0].Id);
 };
 
-const updateProfile = async (profile: Profile) => {
+const updateProfile = async (id: number, profile: Profile) => {
   await dbQuery(
     `
     UPDATE profile SET 
@@ -59,10 +59,10 @@ const updateProfile = async (profile: Profile) => {
       profile.hours_per_day,
       profile.vacation_per_year,
       profile.value_hour,
-      profile.id,
+      id,
     ]
   );
-  return getProfile(profile.id);
+  return getProfile(id);
 };
 
 const listProfiles = async () => {
