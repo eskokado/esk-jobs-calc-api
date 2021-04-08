@@ -1,4 +1,4 @@
-﻿import { dbQuery, dbQueryFirst } from "../db/db";
+﻿import { dbQuery, dbQueryFirst } from "../services/db";
 
 export type Job = {
   id: number;
