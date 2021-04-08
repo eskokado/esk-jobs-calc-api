@@ -1,4 +1,4 @@
-﻿import { dbQuery, dbQueryFirst } from "../db/db";
+﻿import { dbQuery, dbQueryFirst } from "../services/db";
 
 export type Profile = {
   id: number;
