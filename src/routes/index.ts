@@ -5,8 +5,10 @@ import { jobRouter } from "./jobs";
 
 export const useRoutes = (app: Application) => {
   const apiRouter = Router();
+
+  //add your routes
   apiRouter.use("/jobs", jobRouter);
   apiRouter.use("/profiles", profileRouter);
 
-  app.use("/api/v1", apiRouter);
+  app.use("/api", apiRouter);
 };
