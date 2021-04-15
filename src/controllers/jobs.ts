@@ -68,9 +68,6 @@ const deleteJob = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   if (!validateNumber(id)) return badRequest(res, "id inválido");
 
-  const jobSaved = await jobModel.getJob(id);
-  if (!jobSaved) return notFound(res);
-
   return jobModel
     .deleteJob(id)
     .then(() => ok(res))
