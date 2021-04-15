@@ -13,12 +13,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors);
 app.use(contentType);
+
 useRoutes(app);
 
-app.get("/", (req, res) => {
+app.get("/", (req, res, next) => {
   res.json({
     msg: "OK",
   });
+  next();
 });
 
 app.listen(PORT, () => console.log("Servidor iniciado na porta " + PORT));
