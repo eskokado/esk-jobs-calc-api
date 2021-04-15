@@ -16,5 +16,9 @@ Esta API tem como objetivo gerenciar dados com o Banco de Dados SQLite do JobsCa
 - Buscar Job
 - Deletar Job
   
+## Atualizar node modules
+
+Executar `npm install`
+
 ### Iniciar o servidor
   npm run dev
